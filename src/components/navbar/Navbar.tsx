@@ -2,7 +2,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import { Button } from "../ui/button";
 
 const routes: { title: string; href: string }[] = [
   { title: "Features", href: "#features" },
@@ -10,7 +9,7 @@ const routes: { title: string; href: string }[] = [
   { title: "Pricing", href: "#pricing" },
 ];
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -36,20 +35,9 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <div className="hidden items-center gap-2 sm:flex">
-        <Link href={"/login"} className="w-full sm:w-auto">
-          <Button variant="secondary" size="sm" className="w-full">
-            Log In
-          </Button>
-        </Link>
-        <Link href="/signup" className="w-full sm:w-auto">
-          <Button variant="default" size="sm" className="w-full">
-            Sign Up
-          </Button>
-        </Link>
-      </div>
+      {children}
 
-      {menuOpen && <MobileMenu toggleMenu={toggleMenu} />}
+      {menuOpen && <MobileMenu toggleMenu={toggleMenu} children />}
 
       <button onClick={toggleMenu} className="sm:hidden">
         {menuOpen ? (
@@ -62,7 +50,10 @@ const Navbar: React.FC = () => {
   );
 };
 
-const MobileMenu: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
+const MobileMenu: React.FC<{
+  toggleMenu: () => void;
+  children: React.ReactNode;
+}> = ({ toggleMenu, children }) => {
   return (
     <div className="absolute right-0 top-16 flex h-[calc(100vh-64px)] w-full flex-col">
       <div className="bg-background  flex w-full grow flex-col gap-1 px-4 pb-2 sm:hidden">
@@ -76,26 +67,7 @@ const MobileMenu: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
             {route.title}
           </Link>
         ))}
-        <Link href={"/login"} className="w-full sm:w-auto">
-          <Button
-            onClick={toggleMenu}
-            variant="secondary"
-            size="sm"
-            className="w-full"
-          >
-            Log In
-          </Button>
-        </Link>
-        <Link href="/signup" className="w-full sm:w-auto">
-          <Button
-            onClick={toggleMenu}
-            variant="default"
-            size="sm"
-            className="w-full"
-          >
-            Sign Up
-          </Button>
-        </Link>
+        {children}
       </div>
       <div className="bg-background/60 h-screen w-full sm:hidden" />
     </div>

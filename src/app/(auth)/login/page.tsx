@@ -19,7 +19,7 @@ import React, { useState } from "react";
 
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { signUp } from "../actions";
+import { signIn, signUp } from "../actions";
 import OauthButton from "@/components/auth/OauthButton";
 
 const registerSchema = z.object({
@@ -27,10 +27,10 @@ const registerSchema = z.object({
   password: z.string().min(6).max(100),
 });
 
-export type SignupInput = z.infer<typeof registerSchema>;
+export type LoginInput = z.infer<typeof registerSchema>;
 
 export default function Login() {
-  const form = useForm<SignupInput>({
+  const form = useForm<LoginInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       email: "",
@@ -39,13 +39,10 @@ export default function Login() {
   });
 
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
 
-  const onSubmit = async (data: SignupInput) => {
-    setSuccess("Check your email for further instructions");
-    const result = await signUp(data);
+  const onSubmit = async (data: LoginInput) => {
+    const result = await signIn(data);
     if (result?.error) {
-      setSuccess(null);
       setError(result.error);
     }
   };
@@ -56,7 +53,7 @@ export default function Login() {
       <div className="bg-background h-screen w-full lg:w-1/2">
         <div className="flex h-full items-center justify-center">
           <div className="w-full max-w-md p-8">
-            <h1 className="mb-4 text-2xl font-semibold">Sign up</h1>
+            <h1 className="mb-4 text-2xl font-semibold">Sign in</h1>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -102,15 +99,8 @@ export default function Login() {
                   )}
                 />
                 <Button variant="default" className="my-3 w-full" type="submit">
-                  Sign up
+                  Sign in
                 </Button>
-                {success && (
-                  <div className="bg-secondary/50 border-border mb-3 mt-1 rounded-md border p-3">
-                    <p className="text-muted-foreground text-center text-sm font-medium">
-                      {success}
-                    </p>
-                  </div>
-                )}
                 {error && (
                   <div className="bg-destructive/10 border-destructive mb-3 mt-1 rounded-md border p-3">
                     <p className="text-destructive text-center text-sm font-medium">
@@ -128,7 +118,7 @@ export default function Login() {
             <OauthButton provider={"google"} />
             <OauthButton provider={"github"} />
             <p className="text-muted-foreground py-4 text-center text-sm underline">
-              <Link href="/signup">Already have an account? Sign in</Link>
+              <Link href="/signup">Don't have an account? Sign up</Link>
             </p>
           </div>
         </div>
