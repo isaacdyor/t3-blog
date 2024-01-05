@@ -38,13 +38,13 @@ const ProfileButton: React.FC<{ user: User }> = ({ user }) => {
   if (!user) return null;
   return (
     <div ref={ref} className="hidden sm:block">
-      {/* <Avatar
-      className="hover:cursor-pointer"
-      onClick={() => setMenuOpen(!menuOpen)}
+      <Avatar
+        className="hover:cursor-pointer"
+        onClick={() => setMenuOpen(!menuOpen)}
       >
         <AvatarImage src="https://wallpapers.com/images/high/funny-profile-picture-7k1legjukiz1lju7.webp" />
         <AvatarFallback>CN</AvatarFallback>
-      </Avatar> */}
+      </Avatar>
 
       {menuOpen && (
         <div className="bg-secondary absolute right-5 top-16 z-50 flex w-72 flex-col rounded-lg bg-opacity-80 p-4">

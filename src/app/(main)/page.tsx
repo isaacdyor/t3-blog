@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 export default async function AuthButton() {
   const supabase = createClient(cookies());
@@ -27,10 +28,7 @@ export default async function AuthButton() {
           Logout
         </button>
       </form>
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <Button className="bg-red-500">Button</Button>
     </div>
   ) : (
     <Link

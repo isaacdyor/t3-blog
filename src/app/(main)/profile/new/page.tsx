@@ -65,7 +65,7 @@ export default function NewProfileForm() {
 
   const { mutate } = api.profiles.create.useMutation({
     onSuccess: () => {
-      router.push("router");
+      router.push("/profile");
     },
     onError: (e) => {
       const errorMessage = e.data?.zodError?.fieldErrors.content;
