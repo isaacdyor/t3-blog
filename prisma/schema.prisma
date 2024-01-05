@@ -1,20 +1,29 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+enum RoleType {
+  FRONTEND
+  BACKEND
+  FULLSTACK
+  DESIGN
+}
 
-    @@index([name])
+model Profile {
+  id        String   @id
+  createdAt DateTime @default(now()) @map("created_at")
+  email     String   @unique
+  firstName String   
+  lastName  String   
+  role      RoleType
+  skills    String[]
+  bio       String
+  github    String?
+  linkedin  String?
+  website   String?
 }
