@@ -17,9 +17,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { signIn, signUp } from "../actions";
+import { signIn } from "../actions";
 import OauthButton from "@/components/auth/OauthButton";
 
 const registerSchema = z.object({
@@ -118,7 +116,7 @@ export default function Login() {
             <OauthButton provider={"google"} />
             <OauthButton provider={"github"} />
             <p className="text-muted-foreground py-4 text-center text-sm underline">
-              <Link href="/signup">Don't have an account? Sign up</Link>
+              <Link href="/signup">Don&apos;t have an account? Sign up</Link>
             </p>
           </div>
         </div>

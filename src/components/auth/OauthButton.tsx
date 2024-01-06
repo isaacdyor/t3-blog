@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { redirect, usePathname } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import React from "react";
-import { Provider } from "@supabase/supabase-js";
+import type { Provider } from "@supabase/supabase-js";
 import { FaGithub } from "react-icons/fa";
 import { createClient } from "@/utils/supabase/client";
 

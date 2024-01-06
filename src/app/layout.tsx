@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { ThemeProvider } from "@/components/theme-provider";
-import Navbar from "@/components/navbar/Navbar";
 
 const inter = Inter({
   subsets: ["latin"],

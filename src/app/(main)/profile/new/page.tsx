@@ -29,13 +29,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newProfileSchema } from "@/lib/validators/newProfile";
 
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 export type NewProfileInput = z.infer<typeof newProfileSchema>;
 
@@ -76,8 +77,8 @@ export default function NewProfileForm() {
   const onSubmit = async (data: NewProfileInput) => {
     const skillsList = data.skills.map((skill) => skill.name);
     mutate({
-      firstName: data.firstName,
-      lastName: data.lastName,
+      firstName: capitalizeFirstLetter(data.firstName),
+      lastName: capitalizeFirstLetter(data.lastName),
       role: data.role,
       skills: skillsList,
       bio: data.bio,
@@ -158,7 +159,7 @@ export default function NewProfileForm() {
               <FormField
                 control={form.control}
                 name="skills"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
                     <FormLabel>Skills</FormLabel>
                     <div className="grid grid-cols-2 gap-2">
@@ -184,7 +185,7 @@ export default function NewProfileForm() {
 
                           {form.formState.errors.skills?.[index]?.name && (
                             <p className="text-destructive text-sm font-medium">
-                              This can't be empty
+                              This can&apos;t be empty
                             </p>
                           )}
                         </div>

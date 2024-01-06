@@ -32,6 +32,7 @@ const config = {
       },
     ],
   },
+  ignorePatterns: ["src/components/ui", "src/utils/supabase"],
 };
 
 module.exports = config;

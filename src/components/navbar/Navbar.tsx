@@ -37,7 +37,7 @@ const Navbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       {children}
 
-      {menuOpen && <MobileMenu toggleMenu={toggleMenu} children />}
+      {menuOpen && <MobileMenu toggleMenu={toggleMenu}>{children}</MobileMenu>}
 
       <button onClick={toggleMenu} className="sm:hidden">
         {menuOpen ? (
